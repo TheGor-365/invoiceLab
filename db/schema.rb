@@ -10,9 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_25_122507) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_25_190638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "locale", default: "en", null: false
+    t.string "timezone", default: "UTC", null: false
+    t.string "currency", default: "USD", null: false
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency"], name: "index_clients_on_currency"
+    t.index ["locale"], name: "index_clients_on_locale"
+    t.index ["timezone"], name: "index_clients_on_timezone"
+    t.index ["user_id", "email"], name: "index_clients_on_user_id_and_email"
+    t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
+  create_table "invoice_items", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.decimal "quantity", precision: 10, scale: 2, default: "1.0", null: false
+    t.integer "unit_price_cents", default: 0, null: false
+    t.integer "total_cents", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "client_id", null: false
+    t.string "number", null: false
+    t.integer "status", default: 0, null: false
+    t.string "currency", default: "USD", null: false
+    t.integer "total_cents", default: 0, null: false
+    t.date "issued_on"
+    t.date "due_date", null: false
+    t.datetime "paid_at"
+    t.string "stripe_checkout_session_id"
+    t.string "payment_url"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_invoices_on_client_id"
+    t.index ["due_date"], name: "index_invoices_on_due_date"
+    t.index ["status"], name: "index_invoices_on_status"
+    t.index ["user_id", "number"], name: "index_invoices_on_user_id_and_number", unique: true
+    t.index ["user_id"], name: "index_invoices_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,4 +82,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_25_122507) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.check_constraint "char_length(default_currency::text) = 3", name: "users_default_currency_len"
   end
+
+  add_foreign_key "clients", "users"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoices", "clients"
+  add_foreign_key "invoices", "users"
 end

@@ -1,0 +1,62 @@
+<div id="<%= dom_id invoice %>">
+  <p>
+    <strong>Number:</strong>
+    <%= invoice.number %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= invoice.status %>
+  </p>
+
+  <p>
+    <strong>Currency:</strong>
+    <%= invoice.currency %>
+  </p>
+
+  <p>
+    <strong>Total cents:</strong>
+    <%= invoice.total_cents %>
+  </p>
+
+  <p>
+    <strong>Due date:</strong>
+    <%= invoice.due_date %>
+  </p>
+
+  <p>
+    <strong>Issued on:</strong>
+    <%= invoice.issued_on %>
+  </p>
+
+  <p>
+    <strong>Paid at:</strong>
+    <%= invoice.paid_at %>
+  </p>
+
+  <p>
+    <strong>Stripe checkout session:</strong>
+    <%= invoice.stripe_checkout_session_id %>
+  </p>
+
+  <p>
+    <strong>Payment url:</strong>
+    <%= invoice.payment_url %>
+  </p>
+
+  <p>
+    <strong>Notes:</strong>
+    <%= invoice.notes %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= invoice.user_id %>
+  </p>
+
+  <p>
+    <strong>Client:</strong>
+    <%= invoice.client_id %>
+  </p>
+
+</div>

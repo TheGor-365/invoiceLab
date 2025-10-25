@@ -1,6 +1,6 @@
 ru:
   app:
-    name: "Invoicer"
+    name: "InvoiceLab"
   nav:
     home: "Главная"
     clients: "Клиенты"
@@ -14,3 +14,71 @@ ru:
     title: "Выставляй счета быстрее — получай оплату вовремя"
     subtitle: "Инвойсы с многоязычными напоминаниями и учётом часовых поясов"
     cta: "Создать первый инвойс"
+  activerecord:
+    models:
+      client:
+        one: "Клиент"
+        other: "Клиенты"
+      invoice:
+        one: "Инвойс"
+        other: "Инвойсы"
+      invoice_item:
+        one: "Позиция"
+        other: "Позиции"
+    attributes:
+      client:
+        name: "Имя"
+        locale: "Язык"
+        timezone: "Часовой пояс"
+        currency: "Валюта"
+      invoice:
+        number: "Номер"
+        status: "Статус"
+        currency: "Валюта"
+        total_cents: "Сумма"
+        due_date: "Срок оплаты"
+        issued_on: "Дата выставления"
+        notes: "Заметки"
+      invoice_item:
+        name: "Наименование"
+        quantity: "Кол-во"
+        unit_price_cents: "Цена за единицу (в цент.)"
+  clients:
+    flash:
+      created: "Клиент создан"
+      updated: "Клиент обновлён"
+      destroyed: "Клиент удалён"
+  invoices:
+    new: "Новый инвойс"
+    edit: "Редактировать инвойс"
+    line_items: "Позиции"
+    add_line: "Добавить позицию"
+    unit_price: "Цена за единицу (в цент.)"
+    in_cents_hint: "Цены вводим в центах для точности"
+    item: "Позиция"
+    quantity: "Кол-во"
+    total: "Итого"
+    subtotal: "Подытог"
+    title_for_client: "Инвойсы клиента"
+    statuses:
+      draft: "Черновик"
+      sent: "Отправлен"
+      paid: "Оплачен"
+      overdue: "Просрочен"
+      canceled: "Отменён"
+    flash:
+      created: "Инвойс создан"
+      updated: "Инвойс обновлён"
+      destroyed: "Инвойс удалён"
+  helpers:
+    edit: "Править"
+    delete: "Удалить"
+    cancel: "Отмена"
+    back: "Назад"
+    confirm: "Вы уверены?"
+    new_invoice: "Новый инвойс"
+    submit:
+      client:
+        create: "Новый клиент"
+      invoice:
+        create: "Новый инвойс"

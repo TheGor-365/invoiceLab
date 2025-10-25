@@ -1,9 +1,8 @@
-// Simple Stimulus controller demo
-export default class extends window.Stimulus.Controller {
-  static targets = []
+// Safe demo controller; doesn't rely on window.Stimulus
+import { Controller } from "@hotwired/stimulus";
 
+export default class extends Controller {
   connect() {
-    // Runs when controller connects
-    // console.log("HelloController connected")
+    // console.debug("hello_controller connected");
   }
 }

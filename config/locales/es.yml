@@ -1,6 +1,6 @@
 es:
   app:
-    name: "Invoicer"
+    name: "InvoiceLab"
   nav:
     home: "Inicio"
     clients: "Clientes"
@@ -14,3 +14,71 @@ es:
     title: "Factura más rápido, cobra antes"
     subtitle: "Facturas con recordatorios multilingües y zonas horarias"
     cta: "Crear tu primera factura"
+  activerecord:
+    models:
+      client:
+        one: "Cliente"
+        other: "Clientes"
+      invoice:
+        one: "Factura"
+        other: "Facturas"
+      invoice_item:
+        one: "Concepto"
+        other: "Conceptos"
+    attributes:
+      client:
+        name: "Nombre"
+        locale: "Idioma"
+        timezone: "Zona horaria"
+        currency: "Moneda"
+      invoice:
+        number: "Número"
+        status: "Estado"
+        currency: "Moneda"
+        total_cents: "Total"
+        due_date: "Vencimiento"
+        issued_on: "Emitida"
+        notes: "Notas"
+      invoice_item:
+        name: "Concepto"
+        quantity: "Cant."
+        unit_price_cents: "Precio unitario (cent.)"
+  clients:
+    flash:
+      created: "Cliente creado"
+      updated: "Cliente actualizado"
+      destroyed: "Cliente eliminado"
+  invoices:
+    new: "Nueva factura"
+    edit: "Editar factura"
+    line_items: "Conceptos"
+    add_line: "Añadir concepto"
+    unit_price: "Precio unitario (cent.)"
+    in_cents_hint: "Introduzca precios en centavos para evitar redondeos"
+    item: "Concepto"
+    quantity: "Cant."
+    total: "Total"
+    subtotal: "Subtotal"
+    title_for_client: "Facturas del cliente"
+    statuses:
+      draft: "Borrador"
+      sent: "Enviada"
+      paid: "Pagada"
+      overdue: "Vencida"
+      canceled: "Cancelada"
+    flash:
+      created: "Factura creada"
+      updated: "Factura actualizada"
+      destroyed: "Factura eliminada"
+  helpers:
+    edit: "Editar"
+    delete: "Eliminar"
+    cancel: "Cancelar"
+    back: "Atrás"
+    confirm: "¿Estás seguro?"
+    new_invoice: "Nueva factura"
+    submit:
+      client:
+        create: "Nuevo cliente"
+      invoice:
+        create: "Nueva factura"

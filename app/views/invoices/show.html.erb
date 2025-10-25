@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h1><%= @invoice.number %></h1>
+  <div>
+    <span class="badge bg-secondary"><%= t("invoices.statuses.#{@invoice.status}") %></span>
+  </div>
+</div>
+
+<p class="mb-1"><strong><%= t("activerecord.models.client.one") %>:</strong> <%= link_to @invoice.client.name, @invoice.client %></p>
+<p class="mb-1"><strong><%= t("activerecord.attributes.invoice.issued_on") %>:</strong> <%= @invoice.issued_on %></p>
+<p class="mb-3"><strong><%= t("activerecord.attributes.invoice.due_date") %>:</strong> <%= @invoice.due_date %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= t("invoices.item") %></th>
+      <th class="text-end"><%= t("invoices.quantity") %></th>
+      <th class="text-end"><%= t("invoices.unit_price") %></th>
+      <th class="text-end"><%= t("invoices.total") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice.invoice_items.each do |li| %>
+      <tr>
+        <td><strong><%= li.name %></strong><br/><small class="text-muted"><%= li.description %></small></td>
+        <td class="text-end"><%= li.quantity %></td>
+        <td class="text-end"><%= money_cents(li.unit_price_cents, @invoice.currency) %></td>
+        <td class="text-end"><%= money_cents(li.total_cents, @invoice.currency) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="3" class="text-end"><%= t("invoices.subtotal") %></th>
+      <th class="text-end"><%= money_cents(@invoice.total_cents, @invoice.currency) %></th>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="mt-3">
+  <%= link_to t("helpers.edit"), edit_invoice_path(@invoice), class: "btn btn-outline-secondary" %>
+  <%= link_to t("helpers.back"), invoices_path, class: "btn btn-secondary" %>
+</div>

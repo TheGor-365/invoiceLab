@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1><%= t("activerecord.models.client.other") %></h1>
+  <%= link_to t("helpers.submit.client.create"), new_client_path, class: "btn btn-primary" %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= t("activerecord.attributes.client.name") %></th>
+      <th>Email</th>
+      <th><%= t("activerecord.attributes.client.locale") %></th>
+      <th><%= t("activerecord.attributes.client.timezone") %></th>
+      <th><%= t("activerecord.attributes.client.currency") %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= link_to client.name, client %></td>
+        <td><%= client.email %></td>
+        <td><%= client.locale.upcase %></td>
+        <td><%= client.timezone %></td>
+        <td><%= client.currency %></td>
+        <td class="text-end">
+          <%= link_to t("helpers.edit"), edit_client_path(client), class: "btn btn-sm btn-outline-secondary" %>
+          <%= link_to t("helpers.delete"), client, data: { turbo_method: :delete, turbo_confirm: t("helpers.confirm") }, class: "btn btn-sm btn-outline-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

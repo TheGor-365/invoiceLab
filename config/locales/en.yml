@@ -1,6 +1,6 @@
 en:
   app:
-    name: "Invoicer"
+    name: "InvoiceLab"
   nav:
     home: "Home"
     clients: "Clients"
@@ -14,3 +14,71 @@ en:
     title: "Bill faster, get paid sooner"
     subtitle: "Invoices with multilingual reminders and timezones"
     cta: "Create your first invoice"
+  activerecord:
+    models:
+      client:
+        one: "Client"
+        other: "Clients"
+      invoice:
+        one: "Invoice"
+        other: "Invoices"
+      invoice_item:
+        one: "Line item"
+        other: "Line items"
+    attributes:
+      client:
+        name: "Name"
+        locale: "Language"
+        timezone: "Time zone"
+        currency: "Currency"
+      invoice:
+        number: "Number"
+        status: "Status"
+        currency: "Currency"
+        total_cents: "Total"
+        due_date: "Due date"
+        issued_on: "Issued on"
+        notes: "Notes"
+      invoice_item:
+        name: "Name"
+        quantity: "Quantity"
+        unit_price_cents: "Unit price (cents)"
+  clients:
+    flash:
+      created: "Client created"
+      updated: "Client updated"
+      destroyed: "Client removed"
+  invoices:
+    new: "New Invoice"
+    edit: "Edit Invoice"
+    line_items: "Line items"
+    add_line: "Add line"
+    unit_price: "Unit price (cents)"
+    in_cents_hint: "Prices are entered in cents to avoid rounding issues"
+    item: "Item"
+    quantity: "Qty"
+    total: "Total"
+    subtotal: "Subtotal"
+    title_for_client: "Invoices for client"
+    statuses:
+      draft: "Draft"
+      sent: "Sent"
+      paid: "Paid"
+      overdue: "Overdue"
+      canceled: "Canceled"
+    flash:
+      created: "Invoice created"
+      updated: "Invoice updated"
+      destroyed: "Invoice removed"
+  helpers:
+    edit: "Edit"
+    delete: "Delete"
+    cancel: "Cancel"
+    back: "Back"
+    confirm: "Are you sure?"
+    new_invoice: "New invoice"
+    submit:
+      client:
+        create: "New client"
+      invoice:
+        create: "New invoice"

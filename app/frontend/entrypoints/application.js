@@ -1,24 +1,13 @@
-// Bootstrap JS
-import "bootstrap/dist/js/bootstrap.bundle"
+// BEGIN app/frontend/entrypoints/application.js
+// Turbo
+import "@hotwired/turbo-rails";
 
-// Styles
-import "../styles/application.scss"
+// Stimulus (auto-registers everything in ../controllers)
+import "../controllers";
 
-// Hotwire (Turbo) JS part (server helpers via gem turbo-rails)
-import "@hotwired/turbo-rails"
+// Bootstrap JS (collapse, dropdowns, etc.)
+import * as bootstrap from "bootstrap";
 
-// Stimulus setup
-import { Application } from "@hotwired/stimulus"
-import HelloController from "../controllers/hello_controller.js"
-
-window.Stimulus = Application.start()
-Stimulus.register("hello", HelloController)
-
-// Vue mount (sample widget)
-import { createApp } from "vue"
-import HelloVue from "../vue/HelloVue.vue"
-
-document.addEventListener("DOMContentLoaded", () => {
-  const el = document.getElementById("hello-vue")
-  if (el) createApp(HelloVue, { msg: "Vue + Vite + Turbo ✅" }).mount(el)
-})
+// SCSS: подключаем ядро стилей из JS, чтобы избежать 404 на CSS-entrypoint в dev
+import "../styles/application.scss";
+// END app/frontend/entrypoints/application.js

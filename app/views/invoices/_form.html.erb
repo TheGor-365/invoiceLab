@@ -1,0 +1,111 @@
+<%= form_with(model: invoice) do |f| %>
+  <% if invoice.errors.any? %>
+    <div class="alert alert-warning">
+      <ul class="mb-0">
+        <% invoice.errors.full_messages.each { |m| concat content_tag(:li, m) } %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Верхний блок реквизитов инвойса -->
+  <div class="row g-3 align-items-end">
+    <div class="col-md-6">
+      <%= f.label :client_id, class: "form-label" %>
+      <%= f.collection_select :client_id, current_user.clients.order(:name), :id, :name, {}, class: "form-select" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :currency, class: "form-label" %>
+      <%= f.select :currency, options_for_select([["USD","USD"],["EUR","EUR"],["RUB","RUB"]], invoice.currency), {}, class: "form-select" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :due_date, class: "form-label" %>
+      <%= f.date_field :due_date, class: "form-control", required: true %>
+    </div>
+
+    <div class="col-md-4">
+      <%= f.label :status, class: "form-label" %>
+      <%= f.select :status, Invoice.statuses.keys.map { |s| [t("invoices.statuses.#{s}"), s] }, {}, class: "form-select" %>
+    </div>
+    <div class="col-md-8">
+      <%= f.label :notes, class: "form-label" %>
+      <%= f.text_field :notes, class: "form-control" %>
+    </div>
+  </div>
+
+  <hr class="my-4" />
+
+  <!-- Позиции -->
+  <h5 class="mb-3"><%= t("invoices.line_items") %></h5>
+
+  <div data-controller="line-items">
+    <table class="table table-sm align-middle line-items-table mb-2">
+      <thead>
+        <tr>
+          <th style="width:50%"><%= t("activerecord.attributes.invoice_item.name", default: "Наименование") %></th>
+          <th style="width:15%"><%= t("activerecord.attributes.invoice_item.quantity", default: "Кол-во") %></th>
+          <th style="width:25%"><%= t("activerecord.attributes.invoice_item.unit_price_cents", default: "Цена за единицу (в цент.)") %></th>
+          <th style="width:10%"></th>
+        </tr>
+      </thead>
+      <tbody data-line-items-target="container">
+        <% invoice.invoice_items.each do |item| %>
+          <%= f.fields_for :invoice_items, item do |ff| %>
+            <tr data-line-item-row>
+              <td>
+                <%= ff.text_field :name, class: "form-control", required: true %>
+              </td>
+              <td>
+                <%= ff.number_field :quantity, step: 0.01, min: 0, class: "form-control text-end", required: true %>
+              </td>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-text"><%= invoice.currency %></span>
+                  <%= ff.number_field :unit_price_cents, step: 1, min: 0, class: "form-control text-end", required: true %>
+                </div>
+                <%= ff.hidden_field :_destroy, value: false %>
+                <%= ff.hidden_field :id if item.persisted? %>
+              </td>
+              <td class="text-end">
+                <button type="button" class="btn btn-outline-danger btn-sm" data-action="line-items#remove" aria-label="<%= t('helpers.delete') %>">&times;</button>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="text-muted small mb-3"><%= t("invoices.in_cents_hint") %></div>
+
+    <!-- Шаблон новой строки -->
+    <template data-line-items-target="template" id="line-item-template">
+      <tr data-line-item-row>
+        <td>
+          <label class="visually-hidden" for="invoice_invoice_items_attributes_NEW_RECORD_name"><%= t("activerecord.attributes.invoice_item.name", default: "Наименование") %></label>
+          <input class="form-control" required="required" type="text" name="invoice[invoice_items_attributes][NEW_RECORD][name]" id="invoice_invoice_items_attributes_NEW_RECORD_name" />
+        </td>
+        <td>
+          <label class="visually-hidden" for="invoice_invoice_items_attributes_NEW_RECORD_quantity"><%= t("activerecord.attributes.invoice_item.quantity", default: "Кол-во") %></label>
+          <input step="0.01" min="0" class="form-control text-end" required="required" value="1" type="number" name="invoice[invoice_items_attributes][NEW_RECORD][quantity]" id="invoice_invoice_items_attributes_NEW_RECORD_quantity" />
+        </td>
+        <td>
+          <label class="visually-hidden" for="invoice_invoice_items_attributes_NEW_RECORD_unit_price_cents"><%= t("activerecord.attributes.invoice_item.unit_price_cents", default: "Цена (в цент.)") %></label>
+          <div class="input-group">
+            <span class="input-group-text"><%= invoice.currency %></span>
+            <input step="1" min="0" class="form-control text-end" required="required" value="0" type="number" name="invoice[invoice_items_attributes][NEW_RECORD][unit_price_cents]" id="invoice_invoice_items_attributes_NEW_RECORD_unit_price_cents" />
+          </div>
+          <input value="0" autocomplete="off" type="hidden" name="invoice[invoice_items_attributes][NEW_RECORD][_destroy]" id="invoice_invoice_items_attributes_NEW_RECORD__destroy" />
+        </td>
+        <td class="text-end">
+          <button type="button" class="btn btn-outline-danger btn-sm" data-action="line-items#remove" aria-label="<%= t('helpers.delete') %>">&times;</button>
+        </td>
+      </tr>
+    </template>
+
+    <button type="button" class="btn btn-outline-primary" data-action="line-items#add"><%= t("invoices.add_line") %></button>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit class: "btn btn-primary" %>
+    <%= link_to t("helpers.cancel"), invoices_path(locale: I18n.locale), class: "btn btn-secondary" %>
+  </div>
+<% end %>

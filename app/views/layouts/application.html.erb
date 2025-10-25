@@ -1,46 +1,47 @@
+<!-- BEGIN app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title><%= t("app.name") %></title>
+    <title>InvoiceLab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+
+    <!-- Favicon, чтобы убрать лишний 404 -->
+    <link rel="icon" href="/icon.png" />
+
+    <%# Vite client + JS. Стили подключаем из JS (см. entrypoints/application.js) %>
     <%= vite_client_tag %>
-    <%= vite_javascript_tag "application", "data-turbo-track": "reload" %>
-    <%= vite_stylesheet_tag "application", "data-turbo-track": "reload" %>
+    <%= vite_javascript_tag 'application', 'data-turbo-track': 'reload', defer: true %>
   </head>
   <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/"><%= t("app.name") %></a>
+        <%= link_to t('app.name', default: 'InvoiceLab'), root_path(locale: I18n.locale), class: "navbar-brand" %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div id="nav" class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><%= link_to t("nav.home"), root_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to t('nav.home'), root_path(locale: I18n.locale), class: "nav-link" %></li>
             <% if user_signed_in? %>
-              <li class="nav-item"><a class="nav-link disabled" href="#"><%= t("nav.clients") %></a></li>
-              <li class="nav-item"><a class="nav-link disabled" href="#"><%= t("nav.invoices") %></a></li>
+              <li class="nav-item"><%= link_to t('nav.clients'), clients_path(locale: I18n.locale), class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to t('nav.invoices'), invoices_path(locale: I18n.locale), class: "nav-link" %></li>
             <% end %>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><%= t("nav.language") %></a>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><%= t('nav.language') %></a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <% %i[en ru es].each do |l| %>
-                  <li><%= link_to l.upcase, url_for(locale: l), class:"dropdown-item" %></li>
-                <% end %>
+                <li><%= link_to "EN", url_for(locale: :en), class: "dropdown-item" %></li>
+                <li><%= link_to "RU", url_for(locale: :ru), class: "dropdown-item" %></li>
+                <li><%= link_to "ES", url_for(locale: :es), class: "dropdown-item" %></li>
               </ul>
             </li>
             <% if user_signed_in? %>
-              <% if current_user.admin? %>
-                <li class="nav-item"><%= link_to t("nav.admin"), sidekiq_web_path, class:"nav-link" %></li>
-              <% end %>
-              <li class="nav-item"><%= link_to t("nav.sign_out"), destroy_user_session_path, method: :delete, class:"nav-link" %></li>
+              <li class="nav-item"><%= link_to t('nav.admin'), sidekiq_web_path(locale: I18n.locale), class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to t('nav.sign_out'), destroy_user_session_path(locale: I18n.locale), data: { turbo_method: :delete }, class: "nav-link" %></li>
             <% else %>
-              <li class="nav-item"><%= link_to t("nav.sign_in"), new_user_session_path, class:"nav-link" %></li>
-              <li class="nav-item"><%= link_to t("nav.sign_up"), new_user_registration_path, class:"nav-link" %></li>
+              <li class="nav-item"><%= link_to t('nav.sign_in'), new_user_session_path(locale: I18n.locale), class: "nav-link" %></li>
             <% end %>
           </ul>
         </div>
@@ -53,3 +54,4 @@
     </main>
   </body>
 </html>
+<!-- END app/views/layouts/application.html.erb -->

@@ -1,0 +1,32 @@
+<h1 class="mb-3"><%= @client.name %></h1>
+<p class="text-muted mb-1"><%= @client.email %></p>
+<p class="mb-1"><strong><%= t("activerecord.attributes.client.locale") %>:</strong> <%= @client.locale.upcase %></p>
+<p class="mb-1"><strong><%= t("activerecord.attributes.client.timezone") %>:</strong> <%= @client.timezone %></p>
+<p class="mb-3"><strong><%= t("activerecord.attributes.client.currency") %>:</strong> <%= @client.currency %></p>
+
+<div class="mb-3">
+  <%= link_to t("helpers.edit"), edit_client_path(@client), class: "btn btn-outline-primary" %>
+  <%= link_to t("helpers.new_invoice"), new_invoice_path(client_id: @client.id), class: "btn btn-primary" %>
+</div>
+
+<h3 class="mt-4"><%= t("invoices.title_for_client") %></h3>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th><%= t("activerecord.attributes.invoice.number") %></th>
+      <th><%= t("activerecord.attributes.invoice.status") %></th>
+      <th><%= t("activerecord.attributes.invoice.due_date") %></th>
+      <th class="text-end"><%= t("activerecord.attributes.invoice.total_cents") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @client.invoices.recent.each do |inv| %>
+      <tr>
+        <td><%= link_to inv.number, inv %></td>
+        <td><span class="badge bg-secondary"><%= t("invoices.statuses.#{inv.status}") %></span></td>
+        <td><%= inv.due_date %></td>
+        <td class="text-end"><%= money_cents(inv.total_cents, inv.currency) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

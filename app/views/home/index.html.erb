@@ -2,12 +2,26 @@
   <div class="col-md-6">
     <h1 class="display-5 fw-bold"><%= t("home.title") %></h1>
     <p class="lead"><%= t("home.subtitle") %></p>
+
     <% if user_signed_in? %>
-      <a class="btn btn-primary btn-lg disabled" href="#"><%= t("home.cta") %></a>
+      <% if current_user.clients.exists? %>
+        <%= link_to t("home.cta"),
+                    new_invoice_path(locale: I18n.locale),
+                    class: "btn btn-primary btn-lg" %>
+      <% else %>
+        <%= link_to t("clients.new", default: "Новый клиент"),
+                    new_client_path(locale: I18n.locale),
+                    class: "btn btn-primary btn-lg" %>
+        <p class="text-muted mt-2">
+          <%= t("home.no_clients_hint",
+                default: "Сначала добавьте клиента, затем создайте первый инвойс.") %>
+        </p>
+      <% end %>
     <% else %>
-      <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to t("nav.sign_up"), new_user_registration_path(locale: I18n.locale), class: "btn btn-primary btn-lg" %>
     <% end %>
   </div>
+
   <div class="col-md-6">
     <div id="hello-vue"></div>
   </div>

@@ -1,3 +1,14 @@
 @import "bootstrap/scss/bootstrap";
 
 body { -webkit-font-smoothing: antialiased; }
+
+/* Ровное выравнивание строк позиций */
+.line-items-table th,
+.line-items-table td {
+  vertical-align: middle;
+}
+
+/* Чуть шире «EUR/USD/RUB», чтобы смотрелось аккуратно */
+.line-items-table .input-group-text {
+  min-width: 3.25rem;
+}
