@@ -1,0 +1,18 @@
+current directory: /home/gor/Desktop/rails_projects/pro/invoiceLab/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/home/gor/.asdf/installs/ruby/3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/gor/Desktop/rails_projects/pro/invoiceLab/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251025-18804-6ga2zd sitelibdir\=./.gem.20251025-18804-6ga2zd clean
+
+current directory: /home/gor/Desktop/rails_projects/pro/invoiceLab/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251025-18804-6ga2zd sitelibdir\=./.gem.20251025-18804-6ga2zd
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /home/gor/Desktop/rails_projects/pro/invoiceLab/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251025-18804-6ga2zd sitelibdir\=./.gem.20251025-18804-6ga2zd install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20251025-18804-6ga2zd/skiptrace/internal
+
+current directory: /home/gor/Desktop/rails_projects/pro/invoiceLab/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251025-18804-6ga2zd sitelibdir\=./.gem.20251025-18804-6ga2zd clean
