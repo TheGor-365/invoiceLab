@@ -1,0 +1,14 @@
+<div class="row align-items-center">
+  <div class="col-md-6">
+    <h1 class="display-5 fw-bold"><%= t("home.title") %></h1>
+    <p class="lead"><%= t("home.subtitle") %></p>
+    <% if user_signed_in? %>
+      <a class="btn btn-primary btn-lg disabled" href="#"><%= t("home.cta") %></a>
+    <% else %>
+      <%= link_to t("nav.sign_up"), new_user_registration_path, class: "btn btn-primary btn-lg" %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <div id="hello-vue"></div>
+  </div>
+</div>

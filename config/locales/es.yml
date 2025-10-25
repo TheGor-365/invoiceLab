@@ -1,0 +1,16 @@
+es:
+  app:
+    name: "Invoicer"
+  nav:
+    home: "Inicio"
+    clients: "Clientes"
+    invoices: "Facturas"
+    sign_in: "Entrar"
+    sign_out: "Salir"
+    sign_up: "Registro"
+    language: "Idioma"
+    admin: "Admin"
+  home:
+    title: "Factura más rápido, cobra antes"
+    subtitle: "Facturas con recordatorios multilingües y zonas horarias"
+    cta: "Crear tu primera factura"

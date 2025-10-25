@@ -49,3 +49,6 @@ node_modules
 .env
 .env.local
 .env.*.local
+
+# keep example env in VCS
+!/.env.example

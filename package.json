@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "sass-embedded": "^1.93.2",
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.18",
+    "@popperjs/core": "^2.11.8",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "bootstrap": "^5.3.8",
+    "vue": "^3.5.22"
+  }
+}

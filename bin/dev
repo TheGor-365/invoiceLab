@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+export REDIS_URL=${REDIS_URL:-redis://localhost:6379/0}
+export DATABASE_URL=${DATABASE_URL:-postgres://postgres:postgres@localhost:5432/invoicer_saas_development}
+export SMTP_ADDRESS=${SMTP_ADDRESS:-localhost}
+export SMTP_PORT=${SMTP_PORT:-1025}
+export SMTP_DOMAIN=${SMTP_DOMAIN:-localhost}
+export SMTP_USERNAME=${SMTP_USERNAME:-}
+export SMTP_PASSWORD=${SMTP_PASSWORD:-}
+export STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY:-pk_test_xxx}
+export STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-sk_test_xxx}
+
+foreman start -f Procfile.dev
