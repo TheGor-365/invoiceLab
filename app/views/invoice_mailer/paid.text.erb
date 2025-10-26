@@ -1,0 +1,7 @@
+<%= t("mailers.invoice.paid.greeting", name: @invoice.client.name.presence || @invoice.client.email) %>
+
+<%= t("mailers.invoice.paid.body_text",
+  number: @invoice.number,
+  amount: sprintf("%s %.2f", @invoice.currency, @invoice.total_cents.to_f / 100.0)) %>
+
+<%= t("mailers.invoice.common.signature", app: t("app.name")) %>

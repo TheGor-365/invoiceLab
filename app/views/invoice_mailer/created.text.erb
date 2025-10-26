@@ -1,0 +1,10 @@
+<%= t("mailers.invoice.created.greeting", name: @invoice.client.name.presence || @invoice.client.email) %>
+
+<%= t("mailers.invoice.created.body_text",
+  number: @invoice.number,
+  amount: sprintf("%s %.2f", @invoice.currency, @invoice.total_cents.to_f / 100.0),
+  due_date: l(@invoice.due_date)) %>
+
+<%= t("mailers.invoice.common.view_here") %>: <%= invoice_url(@invoice) %>
+
+<%= t("mailers.invoice.common.signature", app: t("app.name")) %>

@@ -1,0 +1,16 @@
+ru:
+  invoices:
+    pdf:
+      title: "Инвойс"
+      bill_to: "Кому"
+      footer_note: "Сгенерировано в InvoiceLab"
+    attributes:
+      number: "Номер"
+      issued_on: "Дата выставления"
+      due_date: "Срок оплаты"
+    items:
+      item: "Позиция"
+      quantity: "Кол-во"
+      unit_price: "Цена за единицу"
+      total: "Итого"
+      subtotal: "Подытог"

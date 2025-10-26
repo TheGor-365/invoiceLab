@@ -1,0 +1,21 @@
+en:
+  invoices:
+    actions:
+      open_pdf: "Open PDF"
+      send_now: "Send now"
+    mail:
+      created: "Send: Created"
+      due: "Send: Due reminder"
+      overdue: "Send: Overdue"
+      paid: "Send: Paid thank you"
+    flash:
+      mail_sent: "Email scheduled to send"
+      created: "Invoice created"
+      updated: "Invoice updated"
+      destroyed: "Invoice removed"
+    statuses:
+      draft: "Draft"
+      sent: "Sent"
+      paid: "Paid"
+      overdue: "Overdue"
+      canceled: "Canceled"

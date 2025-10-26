@@ -1,0 +1,27 @@
+es:
+  mailers:
+    invoice:
+      common:
+        view_invoice: "Ver factura"
+        view_here: "Enlace"
+        signature: "Saludos,\nel equipo de %{app}"
+      created:
+        subject: "Factura %{number} creada"
+        greeting: "Hola, %{name}!"
+        body_html: "Su factura %{number} por %{amount} ha sido creada. Vencimiento: %{due_date}."
+        body_text: "Factura %{number} por %{amount} creada. Vence: %{due_date}."
+      due:
+        subject: "Recordatorio de pago para %{number}"
+        greeting: "Hola, %{name}!"
+        body_html: "Le recordamos: la factura %{number} por %{amount} vence el %{due_date}."
+        body_text: "Recordatorio: factura %{number} por %{amount} vence el %{due_date}."
+      overdue:
+        subject: "Factura %{number} vencida"
+        greeting: "Hola, %{name}!"
+        body_html: "La factura %{number} por %{amount} está vencida (vencimiento %{due_date})."
+        body_text: "Factura %{number} por %{amount} vencida (vencimiento %{due_date})."
+      paid:
+        subject: "¡Gracias! Factura %{number} pagada"
+        greeting: "Hola, %{name}!"
+        body_html: "Gracias por su pago de %{amount} de la factura %{number}."
+        body_text: "Gracias por su pago de %{amount} de la factura %{number}."

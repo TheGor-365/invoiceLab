@@ -15,7 +15,14 @@ Rails.application.routes.draw do
     end
 
     resources :clients
-    resources :invoices
+    resources :invoices do
+      member do
+        post :send_created
+        post :send_due
+        post :send_overdue
+        post :send_paid
+      end
+    end
 
     root "home#index"
   end

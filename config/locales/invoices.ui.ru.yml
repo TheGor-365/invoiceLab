@@ -1,0 +1,21 @@
+ru:
+  invoices:
+    actions:
+      open_pdf: "Открыть PDF"
+      send_now: "Отправить сейчас"
+    mail:
+      created: "Отправить: Создание"
+      due: "Отправить: Напоминание"
+      overdue: "Отправить: Просрочка"
+      paid: "Отправить: Спасибо (оплачено)"
+    flash:
+      mail_sent: "Письмо поставлено в очередь"
+      created: "Инвойс создан"
+      updated: "Инвойс обновлён"
+      destroyed: "Инвойс удалён"
+    statuses:
+      draft: "Черновик"
+      sent: "Отправлен"
+      paid: "Оплачен"
+      overdue: "Просрочен"
+      canceled: "Отменён"

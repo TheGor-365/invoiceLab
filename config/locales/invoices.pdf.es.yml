@@ -1,0 +1,17 @@
+es:
+  invoices:
+    pdf:
+      title: "Factura"
+      invoice_number: "Factura #"
+      issued_on: "Emitida"
+      due_date: "Vencimiento"
+      status: "Estado"
+      currency: "Moneda"
+      bill_to: "Destinatario"
+      item: "Concepto"
+      qty: "Cant."
+      unit_price: "Precio unitario"
+      total: "Total"
+      subtotal: "Subtotal"
+      notes: "Notas"
+      generated_at: "Generado el %{at}"
