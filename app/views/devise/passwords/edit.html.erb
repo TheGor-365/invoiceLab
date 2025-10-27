@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-4 text-center"><%= t("devise.passwords.edit.title", default: "Change your password") %></h1>
+
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+
+          <div class="mb-3">
+            <%= f.label :password, t("devise.passwords.edit.new_password", default: "New password"), class: "form-label" %>
+            <% if @minimum_password_length %>
+              <small class="text-muted d-block mb-1">
+                <%= t("devise.shared.minimum_password_length", default: "Minimum %{count} characters", count: @minimum_password_length) %>
+              </small>
+            <% end %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :password_confirmation, t("devise.passwords.edit.confirm_new_password", default: "Confirm new password"), class: "form-label" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          </div>
+
+          <div class="d-grid">
+            <%= f.submit t("devise.passwords.edit.submit", default: "Change my password"), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+        <hr class="my-4">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

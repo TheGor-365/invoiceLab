@@ -2,21 +2,10 @@ en:
   date:
     formats:
       default: "%Y-%m-%d"
-      long: "%Y-%m-%d"
-      short: "%y-%m-%d"
+      long:    "%Y-%m-%d"
+      short:   "%y-%m-%d"
   time:
     formats:
       default: "%Y-%m-%d %H:%M"
-      long: "%Y-%m-%d %H:%M"
-      short: "%H:%M"
-  number:
-    format:
-      separator: "."
-      delimiter: ","
-    currency:
-      format:
-        format: "%u%n"
-        unit: "$"
-        separator: "."
-        delimiter: ","
-        precision: 2
+      long:    "%Y-%m-%d %H:%M"
+      short:   "%H:%M"

@@ -1,84 +1,203 @@
+---
 ru:
-  app:
-    name: "InvoiceLab"
-  nav:
-    home: "Главная"
-    clients: "Клиенты"
-    invoices: "Инвойсы"
-    sign_in: "Войти"
-    sign_out: "Выйти"
-    sign_up: "Регистрация"
-    language: "Язык"
-    admin: "Админ"
-  home:
-    title: "Выставляй счета быстрее — получай оплату вовремя"
-    subtitle: "Инвойсы с многоязычными напоминаниями и учётом часовых поясов"
-    cta: "Создать первый инвойс"
   activerecord:
-    models:
-      client:
-        one: "Клиент"
-        other: "Клиенты"
-      invoice:
-        one: "Инвойс"
-        other: "Инвойсы"
-      invoice_item:
-        one: "Позиция"
-        other: "Позиции"
     attributes:
       client:
-        name: "Имя"
-        locale: "Язык"
-        timezone: "Часовой пояс"
-        currency: "Валюта"
+        currency: Валюта
+        locale: Язык
+        name: Название
+        timezone: Часовой пояс
       invoice:
-        number: "Номер"
-        status: "Статус"
-        currency: "Валюта"
-        total_cents: "Сумма"
-        due_date: "Срок оплаты"
-        issued_on: "Дата выставления"
-        notes: "Заметки"
+        currency: Валюта
+        due_date: Срок оплаты
+        issued_on: Дата выставления
+        notes: Примечания
+        number: Номер
+        status: Статус
+        total_cents: Итого
       invoice_item:
-        name: "Наименование"
-        quantity: "Кол-во"
-        unit_price_cents: "Цена за единицу (в цент.)"
+        name: Наименование
+        quantity: Кол-во
+        unit_price_cents: Цена за единицу (в центах)
+    models:
+      client:
+        one: Клиент
+        other: Клиенты
+      invoice:
+        one: Счёт
+        other: Счета
+      invoice_item:
+        one: Позиция
+        other: Позиции
+  app:
+    name: InvoiceLab
+  billing:
+    actions:
+      manage: Управлять подпиской
+      subscribe: Оформить подписку
+    flash:
+      cancelled: Подписка отменена.
+      no_customer: Stripe-клиент ещё не создан.
+      portal_failed: Не удалось открыть портал клиента.
+      subscribe_failed: Не удалось оформить подписку.
+      subscribed: Подписка оформлена. Добро пожаловать!
+    hint:
+      env: Установите переменные STRIPE_PRICE_PRO и STRIPE_WEBHOOK_SECRET.
+    pro:
+      desc: Почтовые напоминания, аналитика, PDF-инвойсы и другое.
+      name: Тариф Pro
+      price: 9 $ / месяц
+    title: Подписка
   clients:
     flash:
-      created: "Клиент создан"
-      updated: "Клиент обновлён"
-      destroyed: "Клиент удалён"
-  invoices:
-    new: "Новый инвойс"
-    edit: "Редактировать инвойс"
-    line_items: "Позиции"
-    add_line: "Добавить позицию"
-    unit_price: "Цена за единицу (в цент.)"
-    in_cents_hint: "Цены вводим в центах для точности"
-    item: "Позиция"
-    quantity: "Кол-во"
-    total: "Итого"
-    subtotal: "Подытог"
-    title_for_client: "Инвойсы клиента"
-    statuses:
-      draft: "Черновик"
-      sent: "Отправлен"
-      paid: "Оплачен"
-      overdue: "Просрочен"
-      canceled: "Отменён"
-    flash:
-      created: "Инвойс создан"
-      updated: "Инвойс обновлён"
-      destroyed: "Инвойс удалён"
+      created: Клиент создан
+      destroyed: Клиент удалён
+      updated: Клиент обновлён
+    new: Новый клиент
+  common:
+    enqueued: Задача поставлена в очередь
   helpers:
-    edit: "Править"
-    delete: "Удалить"
-    cancel: "Отмена"
-    back: "Назад"
-    confirm: "Вы уверены?"
-    new_invoice: "Новый инвойс"
+    back: Назад
+    cancel: Отмена
+    confirm: Вы уверены?
+    delete: Удалить
+    edit: Редактировать
+    new_invoice: Новый счёт
     submit:
       client:
-        create: "Новый клиент"
+        create: Создать клиента
       invoice:
-        create: "Новый инвойс"
+        create: Создать счёт
+  home:
+    cta: Создайте первый счёт
+    no_clients_hint: Сначала добавьте клиента, затем создайте первый счёт.
+    subtitle: Счета с многоязычными напоминаниями и часовыми поясами
+    title: Выставляйте быстрее — получайте раньше
+  invoices:
+    actions:
+      open_pdf: Открыть PDF
+      pay: Оплатить
+      send_now: Отправить сейчас
+    add_line: Добавить позицию
+    edit: Редактировать
+    flash:
+      created: Создано
+      destroyed: Удалено
+      updated: Обновлено
+    in_cents_hint: Суммы указываются в центах
+    item: Позиция
+    items:
+      item: Позиция
+      quantity: Кол-во
+      subtotal: Подытог
+      total: Итого
+      unit_price: Цена
+    line_items: Позиции
+    mail:
+      common:
+        signature: Подпись
+        view_here: Посмотреть здесь
+        view_invoice: Посмотреть счёт
+      created:
+        body_html: Текст письма (HTML)
+        body_text: Текст письма
+        greeting: Приветствие
+        subject: Тема
+      due:
+        body_html: Текст письма (HTML)
+        body_text: Текст письма
+        greeting: Приветствие
+        subject: Тема
+      overdue:
+        body_html: Текст письма (HTML)
+        body_text: Текст письма
+        greeting: Приветствие
+        subject: Тема
+      paid:
+        body_html: Текст письма (HTML)
+        body_text: Текст письма
+        greeting: Приветствие
+        subject: Тема
+    mail_menu:
+      created: 'Отправить: Создание'
+      due: 'Отправить: Напоминание'
+      overdue: 'Отправить: Просрочка'
+      paid: 'Отправить: Спасибо (оплачено)'
+    new: Новый
+    pdf:
+      bill_to: Плательщик
+      currency: Валюта
+      due_date: Срок оплаты
+      footer_note: Сгенерировано в InvoiceLab
+      generated_at: Сформировано
+      invoice_number: Номер счёта
+      issued_on: Дата выставления
+      item: Позиция
+      notes: Примечания
+      qty: Кол-во
+      status: Статус
+      subtotal: Подытог
+      title: Счёт
+      total: Итого
+      unit_price: Цена
+    quantity: Кол-во
+    statuses:
+      canceled: Отменён
+      draft: Черновик
+      overdue: Просрочен
+      paid: Оплачен
+      sent: Отправлен
+    subtotal: Подытог
+    title_for_client: Заголовок для клиента
+    total: Итого
+    unit_price: Цена
+  mailers:
+    invoice:
+      common:
+        signature: |-
+          С уважением,
+          команда %{app}
+        view_here: Ссылка
+        view_invoice: Открыть счёт
+      created:
+        body_html: Ваш счёт %{number} на сумму %{amount} создан. Срок оплаты — %{due_date}.
+        body_text: Счёт %{number} на сумму %{amount} создан. Срок оплаты — %{due_date}.
+        greeting: Здравствуйте, %{name}!
+        subject: Создан счёт %{number}
+      due:
+        body_html: 'Напоминаем: счёт %{number} на сумму %{amount} нужно оплатить до
+          %{due_date}.'
+        body_text: 'Напоминание: счёт %{number} на сумму %{amount} к оплате до %{due_date}.'
+        greeting: Здравствуйте, %{name}!
+        subject: Напоминание об оплате счёта %{number}
+      overdue:
+        body_html: Счёт %{number} на сумму %{amount} просрочен (срок был %{due_date}).
+          Просим оплатить.
+        body_text: Счёт %{number} на сумму %{amount} просрочен (срок %{due_date}).
+        greeting: Здравствуйте, %{name}!
+        subject: Счёт %{number} просрочен
+      paid:
+        body_html: Спасибо за оплату %{amount} по счёту %{number}.
+        body_text: Спасибо за оплату %{amount} по счёту %{number}.
+        greeting: Здравствуйте, %{name}!
+        subject: Спасибо! Счёт %{number} оплачен
+  nav:
+    admin: Админ
+    analytics: Аналитика
+    billing: Подписка
+    clients: Клиенты
+    home: Главная
+    invoices: Счета
+    language: Язык
+    sign_in: Войти
+    sign_out: Выйти
+    sign_up: Регистрация
+  number:
+    format:
+      delimiter: " "
+      separator: ","
+  payments:
+    errors:
+      already_paid: Инвойс уже оплачен или отменён.
+      checkout_failed: Не удалось создать сессию оплаты. Попробуйте ещё раз.
+    product_name: Инвойс %{number}

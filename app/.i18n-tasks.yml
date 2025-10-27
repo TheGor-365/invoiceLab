@@ -1,0 +1,10 @@
+base_locale: en
+locales: [en, ru, es]
+data:
+  read:
+    - config/locales/%{locale}.yml
+    - config/locales/**/*.%{locale}.yml
+  write:
+    - config/locales/%{locale}.yml
+    - config/locales/app.%{locale}.yml
+    - config/locales/**/*.%{locale}.yml

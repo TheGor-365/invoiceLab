@@ -1,84 +1,205 @@
+---
 en:
-  app:
-    name: "InvoiceLab"
-  nav:
-    home: "Home"
-    clients: "Clients"
-    invoices: "Invoices"
-    sign_in: "Sign in"
-    sign_out: "Sign out"
-    sign_up: "Sign up"
-    language: "Language"
-    admin: "Admin"
-  home:
-    title: "Bill faster, get paid sooner"
-    subtitle: "Invoices with multilingual reminders and timezones"
-    cta: "Create your first invoice"
   activerecord:
-    models:
-      client:
-        one: "Client"
-        other: "Clients"
-      invoice:
-        one: "Invoice"
-        other: "Invoices"
-      invoice_item:
-        one: "Line item"
-        other: "Line items"
     attributes:
       client:
-        name: "Name"
-        locale: "Language"
-        timezone: "Time zone"
-        currency: "Currency"
+        currency: Currency
+        locale: Language
+        name: Name
+        timezone: Time zone
       invoice:
-        number: "Number"
-        status: "Status"
-        currency: "Currency"
-        total_cents: "Total"
-        due_date: "Due date"
-        issued_on: "Issued on"
-        notes: "Notes"
+        currency: Currency
+        due_date: Due date
+        issued_on: Issued on
+        notes: Notes
+        number: Number
+        status: Status
+        total_cents: Total
       invoice_item:
-        name: "Name"
-        quantity: "Quantity"
-        unit_price_cents: "Unit price (cents)"
+        name: Name
+        quantity: Quantity
+        unit_price_cents: Unit price (cents)
+    models:
+      client:
+        one: Client
+        other: Clients
+      invoice:
+        one: Invoice
+        other: Invoices
+      invoice_item:
+        one: Line item
+        other: Line items
+  app:
+    name: InvoiceLab
+  billing:
+    actions:
+      manage: Manage subscription
+      subscribe: Subscribe
+    flash:
+      cancelled: Subscription canceled.
+      no_customer: No Stripe customer yet.
+      portal_failed: Failed to open customer portal.
+      subscribe_failed: Failed to create subscription.
+      subscribed: Subscription created. Welcome!
+    hint:
+      env: Use STRIPE_PRICE_PRO and STRIPE_WEBHOOK_SECRET in your environment.
+    pro:
+      desc: Email reminders, analytics, PDF invoicing and more.
+      name: Pro plan
+      price: "$9 / month"
+    title: Subscription
   clients:
     flash:
-      created: "Client created"
-      updated: "Client updated"
-      destroyed: "Client removed"
-  invoices:
-    new: "New Invoice"
-    edit: "Edit Invoice"
-    line_items: "Line items"
-    add_line: "Add line"
-    unit_price: "Unit price (cents)"
-    in_cents_hint: "Prices are entered in cents to avoid rounding issues"
-    item: "Item"
-    quantity: "Qty"
-    total: "Total"
-    subtotal: "Subtotal"
-    title_for_client: "Invoices for client"
-    statuses:
-      draft: "Draft"
-      sent: "Sent"
-      paid: "Paid"
-      overdue: "Overdue"
-      canceled: "Canceled"
-    flash:
-      created: "Invoice created"
-      updated: "Invoice updated"
-      destroyed: "Invoice removed"
+      created: Client created
+      destroyed: Client removed
+      updated: Client updated
+    new: New client
+  common:
+    enqueued: Job enqueued
   helpers:
-    edit: "Edit"
-    delete: "Delete"
-    cancel: "Cancel"
-    back: "Back"
-    confirm: "Are you sure?"
-    new_invoice: "New invoice"
+    back: Back
+    cancel: Cancel
+    confirm: Are you sure?
+    delete: Delete
+    edit: Edit
+    new_invoice: New invoice
     submit:
       client:
-        create: "New client"
+        create: New client
       invoice:
-        create: "New invoice"
+        create: New invoice
+  home:
+    cta: Create your first invoice
+    no_clients_hint: Add a client first, then create the first invoice.
+    subtitle: Invoices with multilingual reminders and timezones
+    title: Bill faster, get paid sooner
+  invoices:
+    actions:
+      open_pdf: Open PDF
+      pay: Pay
+      send_now: Send now
+    add_line: Add line
+    edit: Edit
+    flash:
+      created: Created
+      destroyed: Destroyed
+      updated: Updated
+    in_cents_hint: Enter amounts in cents
+    item: Item
+    items:
+      item: Item
+      quantity: Qty
+      subtotal: Subtotal
+      total: Total
+      unit_price: Unit price
+    line_items: Line items
+    mail:
+      common:
+        signature: Signature
+        view_here: View here
+        view_invoice: View invoice
+      created:
+        body_html: Body html
+        body_text: Body text
+        greeting: Greeting
+        subject: Subject
+      due:
+        body_html: Body html
+        body_text: Body text
+        greeting: Greeting
+        subject: Subject
+      overdue:
+        body_html: Body html
+        body_text: Body text
+        greeting: Greeting
+        subject: Subject
+      paid:
+        body_html: Body html
+        body_text: Body text
+        greeting: Greeting
+        subject: Subject
+    mail_menu:
+      created: 'Send: Created'
+      due: 'Send: Due reminder'
+      overdue: 'Send: Overdue'
+      paid: 'Send: Paid thank you'
+    new: New
+    pdf:
+      bill_to: Bill to
+      currency: Currency
+      due_date: Due date
+      footer_note: Generated by InvoiceLab
+      generated_at: Generated at
+      invoice_number: Invoice number
+      issued_on: Issued on
+      item: Item
+      notes: Notes
+      qty: Qty
+      status: Status
+      subtotal: Subtotal
+      title: Invoice
+      total: Total
+      unit_price: Unit price
+    quantity: Quantity
+    statuses:
+      canceled: Canceled
+      draft: Draft
+      overdue: Overdue
+      paid: Paid
+      sent: Sent
+    subtotal: Subtotal
+    title_for_client: Title for client
+    total: Total
+    unit_price: Unit price
+  mailers:
+    invoice:
+      common:
+        signature: |-
+          Best regards,
+          %{app} team
+        view_here: View here
+        view_invoice: View invoice
+      created:
+        body_html: Your invoice %{number} for %{amount} has been created with due
+          date %{due_date}.
+        body_text: Your invoice %{number} for %{amount} has been created with due
+          date %{due_date}.
+        greeting: Hello, %{name}!
+        subject: Invoice %{number} created
+      due:
+        body_html: 'This is a reminder: invoice %{number} for %{amount} is due on
+          %{due_date}.'
+        body_text: 'Reminder: invoice %{number} for %{amount} is due on %{due_date}.'
+        greeting: Hello, %{name}!
+        subject: Payment reminder for invoice %{number}
+      overdue:
+        body_html: Invoice %{number} for %{amount} is overdue (due %{due_date}). Please
+          pay as soon as possible.
+        body_text: Invoice %{number} for %{amount} is overdue (due %{due_date}).
+        greeting: Hello, %{name}!
+        subject: Invoice %{number} is overdue
+      paid:
+        body_html: Thank you for your payment of %{amount} for invoice %{number}.
+        body_text: Thank you for your payment of %{amount} for invoice %{number}.
+        greeting: Hello, %{name}!
+        subject: Thank you! Invoice %{number} paid
+  nav:
+    admin: Admin
+    analytics: Analytics
+    billing: Billing
+    clients: Clients
+    home: Home
+    invoices: Invoices
+    language: Language
+    sign_in: Sign in
+    sign_out: Sign out
+    sign_up: Sign up
+  number:
+    format:
+      delimiter: ","
+      separator: "."
+  payments:
+    errors:
+      already_paid: This invoice is already paid or canceled.
+      checkout_failed: Failed to start checkout. Please try again.
+    product_name: Invoice %{number}

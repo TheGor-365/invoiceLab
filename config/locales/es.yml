@@ -1,84 +1,202 @@
+---
 es:
-  app:
-    name: "InvoiceLab"
-  nav:
-    home: "Inicio"
-    clients: "Clientes"
-    invoices: "Facturas"
-    sign_in: "Entrar"
-    sign_out: "Salir"
-    sign_up: "Registro"
-    language: "Idioma"
-    admin: "Admin"
-  home:
-    title: "Factura más rápido, cobra antes"
-    subtitle: "Facturas con recordatorios multilingües y zonas horarias"
-    cta: "Crear tu primera factura"
   activerecord:
-    models:
-      client:
-        one: "Cliente"
-        other: "Clientes"
-      invoice:
-        one: "Factura"
-        other: "Facturas"
-      invoice_item:
-        one: "Concepto"
-        other: "Conceptos"
     attributes:
       client:
-        name: "Nombre"
-        locale: "Idioma"
-        timezone: "Zona horaria"
-        currency: "Moneda"
+        currency: Moneda
+        locale: Idioma
+        name: Nombre
+        timezone: Zona horaria
       invoice:
-        number: "Número"
-        status: "Estado"
-        currency: "Moneda"
-        total_cents: "Total"
-        due_date: "Vencimiento"
-        issued_on: "Emitida"
-        notes: "Notas"
+        currency: Moneda
+        due_date: Fecha de vencimiento
+        issued_on: Fecha de emisión
+        notes: Notas
+        number: Número
+        status: Estado
+        total_cents: Total
       invoice_item:
-        name: "Concepto"
-        quantity: "Cant."
-        unit_price_cents: "Precio unitario (cent.)"
+        name: Concepto
+        quantity: Cantidad
+        unit_price_cents: Precio unitario (centavos)
+    models:
+      client:
+        one: Cliente
+        other: Clientes
+      invoice:
+        one: Factura
+        other: Facturas
+      invoice_item:
+        one: Línea
+        other: Líneas
+  app:
+    name: InvoiceLab
+  billing:
+    actions:
+      manage: Gestionar suscripción
+      subscribe: Suscribirse
+    flash:
+      cancelled: Suscripción cancelada.
+      no_customer: Aún no hay cliente de Stripe.
+      portal_failed: No se pudo abrir el portal del cliente.
+      subscribe_failed: No se pudo crear la suscripción.
+      subscribed: Suscripción creada. ¡Bienvenido!
+    hint:
+      env: Configura STRIPE_PRICE_PRO y STRIPE_WEBHOOK_SECRET.
+    pro:
+      desc: Recordatorios por correo, analítica, facturas PDF y más.
+      name: Plan Pro
+      price: "$9 / mes"
+    title: Suscripción
   clients:
     flash:
-      created: "Cliente creado"
-      updated: "Cliente actualizado"
-      destroyed: "Cliente eliminado"
-  invoices:
-    new: "Nueva factura"
-    edit: "Editar factura"
-    line_items: "Conceptos"
-    add_line: "Añadir concepto"
-    unit_price: "Precio unitario (cent.)"
-    in_cents_hint: "Introduzca precios en centavos para evitar redondeos"
-    item: "Concepto"
-    quantity: "Cant."
-    total: "Total"
-    subtotal: "Subtotal"
-    title_for_client: "Facturas del cliente"
-    statuses:
-      draft: "Borrador"
-      sent: "Enviada"
-      paid: "Pagada"
-      overdue: "Vencida"
-      canceled: "Cancelada"
-    flash:
-      created: "Factura creada"
-      updated: "Factura actualizada"
-      destroyed: "Factura eliminada"
+      created: Cliente creado
+      destroyed: Cliente eliminado
+      updated: Cliente actualizado
+    new: Nuevo cliente
+  common:
+    enqueued: Trabajo encolado
   helpers:
-    edit: "Editar"
-    delete: "Eliminar"
-    cancel: "Cancelar"
-    back: "Atrás"
-    confirm: "¿Estás seguro?"
-    new_invoice: "Nueva factura"
+    back: Atrás
+    cancel: Cancelar
+    confirm: "¿Seguro?"
+    delete: Eliminar
+    edit: Editar
+    new_invoice: Nueva factura
     submit:
       client:
-        create: "Nuevo cliente"
+        create: Nuevo cliente
       invoice:
-        create: "Nueva factura"
+        create: Nueva factura
+  home:
+    cta: Crea tu primera factura
+    no_clients_hint: Primero añade un cliente y luego crea tu primera factura.
+    subtitle: Facturas con recordatorios multilingües y zonas horarias
+    title: Factura más rápido y cobra antes
+  invoices:
+    actions:
+      open_pdf: Abrir PDF
+      pay: Pagar
+      send_now: Enviar ahora
+    add_line: Añadir línea
+    edit: Editar
+    flash:
+      created: Creada
+      destroyed: Eliminada
+      updated: Actualizada
+    in_cents_hint: En centavos
+    item: Concepto
+    items:
+      item: Concepto
+      quantity: Cant.
+      subtotal: Subtotal
+      total: Total
+      unit_price: Precio unitario
+    line_items: Líneas
+    mail:
+      common:
+        signature: Firma
+        view_here: Ver aquí
+        view_invoice: Ver factura
+      created:
+        body_html: Cuerpo HTML
+        body_text: Cuerpo de texto
+        greeting: Saludo
+        subject: Asunto
+      due:
+        body_html: Cuerpo HTML
+        body_text: Cuerpo de texto
+        greeting: Saludo
+        subject: Asunto
+      overdue:
+        body_html: Cuerpo HTML
+        body_text: Cuerpo de texto
+        greeting: Saludo
+        subject: Asunto
+      paid:
+        body_html: Cuerpo HTML
+        body_text: Cuerpo de texto
+        greeting: Saludo
+        subject: Asunto
+    mail_menu:
+      created: 'Enviar: Creación'
+      due: 'Enviar: Recordatorio'
+      overdue: 'Enviar: Vencida'
+      paid: 'Enviar: Gracias (pagada)'
+    new: Nueva
+    pdf:
+      bill_to: Facturar a
+      currency: Moneda
+      due_date: Vencimiento
+      footer_note: Generado por InvoiceLab
+      generated_at: Generado el
+      invoice_number: Número de factura
+      issued_on: Emitida
+      item: Concepto
+      notes: Notas
+      qty: Cant.
+      status: Estado
+      subtotal: Subtotal
+      title: Factura
+      total: Total
+      unit_price: Precio unitario
+    quantity: Cantidad
+    statuses:
+      canceled: Cancelada
+      draft: Borrador
+      overdue: Vencida
+      paid: Pagada
+      sent: Enviada
+    subtotal: Subtotal
+    title_for_client: Título para el cliente
+    total: Total
+    unit_price: Precio unitario
+  mailers:
+    invoice:
+      common:
+        signature: |-
+          Saludos,
+          el equipo de %{app}
+        view_here: Enlace
+        view_invoice: Ver factura
+      created:
+        body_html: 'Su factura %{number} por %{amount} ha sido creada. Vencimiento:
+          %{due_date}.'
+        body_text: 'Factura %{number} por %{amount} creada. Vence: %{due_date}.'
+        greeting: "¡Hola, %{name}!"
+        subject: Factura %{number} creada
+      due:
+        body_html: 'Le recordamos: la factura %{number} por %{amount} vence el %{due_date}.'
+        body_text: 'Recordatorio: factura %{number} por %{amount} vence el %{due_date}.'
+        greeting: "¡Hola, %{name}!"
+        subject: Recordatorio de pago para %{number}
+      overdue:
+        body_html: La factura %{number} por %{amount} está vencida (vencimiento %{due_date}).
+        body_text: Factura %{number} por %{amount} vencida (vencimiento %{due_date}).
+        greeting: "¡Hola, %{name}!"
+        subject: Factura %{number} vencida
+      paid:
+        body_html: Gracias por su pago de %{amount} de la factura %{number}.
+        body_text: Gracias por su pago de %{amount} de la factura %{number}.
+        greeting: "¡Hola, %{name}!"
+        subject: "¡Gracias! Factura %{number} pagada"
+  nav:
+    admin: Admin
+    analytics: Analítica
+    billing: Suscripción
+    clients: Clientes
+    home: Inicio
+    invoices: Facturas
+    language: Idioma
+    sign_in: Iniciar sesión
+    sign_out: Cerrar sesión
+    sign_up: Registrarse
+  number:
+    format:
+      delimiter: "."
+      separator: ","
+  payments:
+    errors:
+      already_paid: Esta factura ya está pagada o cancelada.
+      checkout_failed: No se pudo iniciar el pago. Inténtalo de nuevo.
+    product_name: Factura %{number}

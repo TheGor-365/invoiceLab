@@ -1,11 +1,17 @@
 <div class="d-flex justify-content-between align-items-center">
   <h1 class="mb-0"><%= @invoice.number %></h1>
   <div class="d-flex align-items-center gap-2">
-    <span class="badge bg-secondary"><%= t("invoices.statuses.#{@invoice.status}") %></span>
+    <%= status_badge(@invoice.status) %>
     <%= link_to t("invoices.actions.open_pdf", default: "Open PDF"),
                 invoice_path(@invoice, format: :pdf),
                 class: "btn btn-outline-primary btn-sm",
                 target: "_blank", rel: "noopener" %>
+    <% unless @invoice.status_paid? || @invoice.status_canceled? %>
+      <%= button_to t("invoices.actions.pay", default: "Pay"),
+                    pay_invoice_path(@invoice),
+                    method: :post,
+                    class: "btn btn-success btn-sm" %>
+    <% end %>
   </div>
 </div>
 

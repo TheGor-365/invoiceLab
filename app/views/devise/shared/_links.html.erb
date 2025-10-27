@@ -1,0 +1,32 @@
+<div class="mt-3 small">
+  <% unless controller_name == 'sessions' %>
+    <div><%= link_to t("nav.sign_in", default: "Log in"), new_session_path(resource_name), class: "link-secondary" %></div>
+  <% end %>
+
+  <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <div><%= link_to t("nav.sign_up", default: "Sign up"), new_registration_path(resource_name), class: "link-secondary" %></div>
+  <% end %>
+
+  <% if devise_mapping.recoverable? && !['passwords','registrations'].include?(controller_name) %>
+    <div><%= link_to t("devise.passwords.new.title", default: "Forgot your password?"), new_password_path(resource_name), class: "link-secondary" %></div>
+  <% end %>
+
+  <% if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <div><%= link_to t("devise.confirmations.new.title", default: "Didn't receive confirmation instructions?"), new_confirmation_path(resource_name), class: "link-secondary" %></div>
+  <% end %>
+
+  <% if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+    <div><%= link_to t("devise.unlocks.new.title", default: "Didn't receive unlock instructions?"), new_unlock_path(resource_name), class: "link-secondary" %></div>
+  <% end %>
+
+  <% if devise_mapping.omniauthable? %>
+    <% resource_class.omniauth_providers.each do |provider| %>
+      <div>
+        <%= button_to t("devise.omniauth.sign_in_with", default: "Sign in with %{provider}", provider: OmniAuth::Utils.camelize(provider)),
+                      omniauth_authorize_path(resource_name, provider),
+                      data: { turbo: false },
+                      class: "btn btn-outline-secondary btn-sm" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

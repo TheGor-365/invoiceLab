@@ -1,0 +1,4 @@
+reminders_sweep:
+  cron: "0 * * * *"
+  class: "Reminders::SweepJob"
+  queue: default

@@ -1,6 +1,8 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :send_created, :send_due, :send_overdue, :send_paid]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy,
+                                     :send_created, :send_due, :send_overdue, :send_paid,
+                                     :pay]
 
   def index
     # Сохраняем вашу выборку с includes(:client) и scope :recent
@@ -56,25 +58,65 @@ class InvoicesController < ApplicationController
     redirect_to invoices_url, notice: t("invoices.flash.destroyed")
   end
 
-  # ==== ручные отправки писем (итерация 2) ====
+  # ==== ручные отправки писем (итерация 2/3) ====
+
   def send_created
-    InvoiceMailer.created(@invoice.id).deliver_later
-    redirect_to @invoice, notice: t("invoices.flash.mail_sent", default: "Email scheduled to send")
+    SendInvoiceEmailJob.perform_later(@invoice.id, "created")
+    redirect_to @invoice, notice: t("common.enqueued")
   end
 
   def send_due
-    InvoiceMailer.due(@invoice.id).deliver_later
-    redirect_to @invoice, notice: t("invoices.flash.mail_sent", default: "Email scheduled to send")
+    SendInvoiceEmailJob.perform_later(@invoice.id, "due")
+    redirect_to @invoice, notice: t("common.enqueued")
   end
 
   def send_overdue
-    InvoiceMailer.overdue(@invoice.id).deliver_later
-    redirect_to @invoice, notice: t("invoices.flash.mail_sent", default: "Email scheduled to send")
+    SendInvoiceEmailJob.perform_later(@invoice.id, "overdue")
+    redirect_to @invoice, notice: t("common.enqueued")
   end
 
   def send_paid
-    InvoiceMailer.paid(@invoice.id).deliver_later
-    redirect_to @invoice, notice: t("invoices.flash.mail_sent", default: "Email scheduled to send")
+    SendInvoiceEmailJob.perform_later(@invoice.id, "paid")
+    redirect_to @invoice, notice: t("common.enqueued")
+  end
+
+  # ==== Stripe Checkout (оплата инвойса) ====
+  # POST /invoices/:id/pay
+  def pay
+    return redirect_to @invoice, alert: t("payments.errors.already_paid") if @invoice.status_paid? || @invoice.status_canceled?
+
+    base_url   = request.base_url
+    success_url = "#{base_url}#{invoice_path(@invoice, locale: I18n.locale)}?paid=1"
+    cancel_url  = "#{base_url}#{invoice_path(@invoice, locale: I18n.locale)}"
+
+    session = Stripe::Checkout::Session.create(
+      mode: "payment",
+      success_url: success_url,
+      cancel_url:  cancel_url,
+      customer_email: @invoice.client.email,
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: @invoice.currency.to_s.downcase,
+            unit_amount: @invoice.total_cents,
+            product_data: {
+              name: I18n.t("payments.product_name", number: @invoice.number, default: "Invoice #{@invoice.number}")
+            }
+          }
+        }
+      ],
+      metadata: {
+        invoice_id: @invoice.id,
+        user_id: current_user.id
+      }
+    )
+
+    @invoice.update!(stripe_checkout_session_id: session.id, payment_url: session.url)
+    redirect_to session.url, allow_other_host: true, status: :see_other
+  rescue Stripe::StripeError => e
+    Rails.logger.error("Stripe error: #{e.class}: #{e.message}")
+    redirect_to @invoice, alert: t("payments.errors.checkout_failed")
   end
 
   private

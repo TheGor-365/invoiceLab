@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_25_190638) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_26_193603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_25_190638) do
     t.index ["timezone"], name: "index_clients_on_timezone"
     t.index ["user_id", "email"], name: "index_clients_on_user_id_and_email"
     t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
+  create_table "email_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "invoice_id", null: false
+    t.string "kind", null: false
+    t.string "to", null: false
+    t.string "subject", null: false
+    t.integer "status", default: 0, null: false
+    t.string "message_id"
+    t.text "error"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id", "kind", "created_at"], name: "index_email_logs_on_invoice_id_and_kind_and_created_at"
+    t.index ["invoice_id"], name: "index_email_logs_on_invoice_id"
+    t.index ["user_id"], name: "index_email_logs_on_user_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -77,13 +94,22 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_25_190638) do
     t.string "timezone", default: "UTC", null: false
     t.string "default_currency", limit: 3, default: "USD", null: false
     t.boolean "admin", default: false, null: false
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
+    t.string "plan"
+    t.string "subscription_status"
+    t.datetime "trial_ends_at"
     t.index ["admin"], name: "index_users_on_admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id"
+    t.index ["stripe_subscription_id"], name: "index_users_on_stripe_subscription_id"
     t.check_constraint "char_length(default_currency::text) = 3", name: "users_default_currency_len"
   end
 
   add_foreign_key "clients", "users"
+  add_foreign_key "email_logs", "invoices"
+  add_foreign_key "email_logs", "users"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoices", "clients"
   add_foreign_key "invoices", "users"

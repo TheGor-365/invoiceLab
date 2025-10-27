@@ -1,22 +1,11 @@
 es:
   date:
     formats:
-      default: "%d/%m/%Y"
-      long: "%d/%m/%Y"
-      short: "%d/%m"
+      default: "%Y-%m-%d"
+      long:    "%Y-%m-%d"
+      short:   "%y-%m-%d"
   time:
     formats:
-      default: "%d/%m/%Y %H:%M"
-      long: "%d/%m/%Y %H:%M"
-      short: "%H:%M"
-  number:
-    format:
-      separator: ","
-      delimiter: "."
-    currency:
-      format:
-        format: "%n %u"
-        unit: "€"
-        separator: ","
-        delimiter: "."
-        precision: 2
+      default: "%Y-%m-%d %H:%M"
+      long:    "%Y-%m-%d %H:%M"
+      short:   "%H:%M"

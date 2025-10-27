@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to inv.number, inv %></td>
         <td><%= inv.client.name %></td>
-        <td><span class="badge bg-secondary"><%= t("invoices.statuses.#{inv.status}") %></span></td>
+        <td><%= status_badge(inv.status) %></td>
         <td><%= inv.due_date %></td>
         <td class="text-end"><%= money_cents(inv.total_cents, inv.currency) %></td>
         <td class="text-end">

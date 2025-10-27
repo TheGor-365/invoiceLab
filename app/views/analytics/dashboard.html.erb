@@ -1,0 +1,29 @@
+<h1 class="h3 mb-3"><%= t("nav.analytics") %></h1>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h2 class="h5">Invoices by status</h2>
+      <ul class="mb-0">
+        <% @by_status.each do |status, count| %>
+          <li>
+            <span class="badge bg-secondary"><%= t("invoices.statuses.#{status}", default: status.humanize) %></span>
+            — <%= count %> pcs, total
+            <%= number_to_currency((@sum_by_status[status].to_i / 100.0), unit: "$", precision: 2) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h2 class="h5">Email deliveries (7 days)</h2>
+      <ul class="mb-0">
+        <% @emails_7d.each do |status, count| %>
+          <li><%= status %> — <%= count %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
