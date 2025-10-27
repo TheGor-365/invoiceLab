@@ -1,0 +1,96 @@
+# render.yaml
+services:
+  - type: web
+    name: invoicelab-web
+    env: ruby
+    plan: free
+    buildCommand: >
+      bundle config set without 'development test' &&
+      bundle install -j4 --retry 3 &&
+      yarn install --frozen-lockfile &&
+      bundle exec rake vite:build
+    preDeployCommand: bundle exec rails db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
+    healthCheckPath: /up
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "1"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: invoicelab-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: invoicelab-redis
+          type: redis
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: APP_HOST
+        sync: false
+      - key: MAILER_FROM
+        sync: false
+      - key: SMTP_ADDRESS
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_DOMAIN
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      # Stripe (из итерации 4)
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+
+  - type: worker
+    name: invoicelab-worker
+    env: ruby
+    plan: free
+    buildCommand: >
+      bundle config set without 'development test' &&
+      bundle install -j4 --retry 3 &&
+      yarn install --frozen-lockfile
+    startCommand: bundle exec sidekiq -c ${SIDEKIQ_CONCURRENCY:-10}
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: invoicelab-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: invoicelab-redis
+          type: redis
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: APP_HOST
+        sync: false
+      - key: SIDEKIQ_CRON
+        value: "1"
+      - key: SIDEKIQ_USER
+        value: admin
+      - key: SIDEKIQ_PASSWORD
+        sync: false
+
+databases:
+  - name: invoicelab-db
+    plan: free
+
+services:
+  - type: redis
+    name: invoicelab-redis
+    plan: free
