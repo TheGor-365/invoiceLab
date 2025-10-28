@@ -377,7 +377,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stringio (3.1.7)
-    stripe (10.15.0)
+    stripe (17.0.1)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.4.0)
@@ -456,7 +456,7 @@ DEPENDENCIES
   sidekiq (~> 7.2)
   sidekiq-cron
   sprockets-rails
-  stripe (~> 10.0)
+  stripe (~> 17.0)
   turbo-rails
   tzinfo-data
   vite_rails (~> 3.0)
