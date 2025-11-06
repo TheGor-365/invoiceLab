@@ -17,7 +17,7 @@ gem "turbo-rails"
 gem "sidekiq", "~> 7.2"
 gem "sidekiq-cron"
 gem "sassc-rails"
-gem "stripe", "~> 10.0"
+gem "stripe", "~> 17.2"
 # gem "kredis"
 # gem "bcrypt", "~> 3.1.7"
 
