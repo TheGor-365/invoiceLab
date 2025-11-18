@@ -31,7 +31,7 @@ end
 group :development do
   gem "web-console"
   gem "letter_opener_web"
-  gem "i18n-tasks", "~> 1.0", require: false
+  gem "i18n-tasks", "~> 1.1", require: false
 end
 
 group :test do
